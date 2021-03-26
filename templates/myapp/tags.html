@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Tags{% endblock title %}
+
+{% block content %}
+
+
+<div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+  Our Blogs - Tags
+</div>
+
+
+<div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    {% for mt in common_tags %}
+    <a href="/tags/{{ mt.slug }}/" class="btn btn-success btn-sm">#{{mt}}</a>
+    {% endfor %}
+  </div>
+
+{% if posts %}
+{% for post in posts %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong><a href="{% url 'category_post' post.category.slug %}">({{ post.category }})</a></strong> {{ post.title }}.
+  <button type="button" class="close">
+    <span aria-hidden="true"><a href="/{{ post.slug }}/">&RightTeeArrow;</a></span>
+  </button>
+</div>
+{% endfor %}
+{% else %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    No Posts Found Related To Tag.
+  </div>
+{% endif %}
+
+{% endblock content %}

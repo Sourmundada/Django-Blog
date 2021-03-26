@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}View Blogs{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+      <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+        <form action="{% url 'logout' %}" method="POST">
+          {% csrf_token %}
+          <a href="{% url 'feed_post' %}" class="btn btn-outline-primary my-2 my-sm-0">Your Feed</a>
+          <a href="{% url 'change_password' %}" class="btn btn-outline-primary my-2 my-sm-0">Change Password</a>
+          <button type="submit" class="btn btn-outline-danger my-2 my-sm-0">Logout</button>
+        </form>
+      </div>
+{% else %}
+      <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+        <a href="{% url 'signup' %}" class="btn btn-outline-primary my-2 my-sm-0">Register</a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary my-2 my-sm-0">Login</a>
+      </div>
+{% endif %}
+
+<div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+  Our Blogs
+</div>
+
+{% for post in posts %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong><a href="{% url 'category_post' post.category.slug %}">({{ post.category }})</a></strong> {{ post.title }}.
+  <button type="button" class="close">
+    <span aria-hidden="true"><a href="/{{ post.slug }}/">&RightTeeArrow;</a></span>
+  </button>
+</div>
+{% endfor %}
+
+{% if is_paginated %}
+  <nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Show Newer Posts </a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> Show Older Posts &raquo;</a></li>
+
+    {% endif %}
+  </ul>
+  </nav>
+</div>
+{% endif %}
+
+
+{% endblock content %}
+    

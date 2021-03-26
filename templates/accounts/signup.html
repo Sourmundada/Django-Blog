@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}SignUp - Create An Account{% endblock title %}
+
+{% block content %}
+
+{% if error %}
+      <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+        {{ error }}
+      </div>
+      {% else %}
+      <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+       Create A New Account
+      </div>
+      {% endif %}
+
+  <div style="text-align: center;">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Create An Account">
+</form>
+  </div>
+
+<div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    Already Have An Account? <a href="{% url 'login' %}">Login</a>
+  </div>
+
+{% endblock content %}

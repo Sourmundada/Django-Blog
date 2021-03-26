@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+
+    <style>
+      html, body {
+        font-family: 'Work Sans', sans-serif;
+      }
+
+      /* input, textarea, select {
+        width: 75%;
+        padding: 5px;
+        outline: none;
+      } */
+      label {
+        width: 100%;
+      }
+      @media (max-width: 600px){
+        .form-inline {
+          width: 100%;
+        }
+
+        .form-inline input, .form-inline button {
+          width: 600px;
+        }
+        
+        a.blog {
+          text-align: center;
+          width: 100%;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <title>{% block title %}{% endblock title %}</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand blog" href="{% url 'PostListView' %}">SM-Blog</a>
+        <form action="{% url 'search_post' %}" class="form-inline">
+          <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
+
+
+
+    <div class="container my-4">
+    {% block content %}{% endblock content %}
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+    $("#post-form").submit(function(e){
+        e.preventDefault();
+        });
+    </script>
+  </body>
+</html>
