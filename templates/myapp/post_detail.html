@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
-  {{ post.title }} by {{ post.author }}
+  {{ post.title }} by <a href="/profile/{{ post.author_profile }}/">{{ post.author }}</a>
 <br>
   <span class="btn btn-success btn-sm my-2">{{ post.views }} Views</span>
 

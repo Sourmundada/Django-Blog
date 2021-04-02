@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Author - Profile{% endblock title %}
+
+{% block content %}
+
+<div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    {{ profile.name }}
+  </div>
+
+  <img src="{{ profile.pic.url }}" width="100px" height="100px" style="border-radius: 50%;">
+
+  <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    {{ profile.bio }}
+  </div>
+
+  <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    Followers : {{ profile.total_followers }} Followers
+  </div>
+
+
+{% if followed %}
+  <form action="{% url 'unfollow_author' profile.author.username %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary my-3"><i class="fa fa-user-circle"></i> Unfollow</button>
+  </form>
+    {% else %}
+    <form action="{% url 'follow_author' profile.author.username %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary my-3"><i class="fa fa-user-circle-o"></i> Follow</button>
+  </form>
+    {% endif %}
+
+  <hr>
+  <h3>Author Posts</h3>
+  <hr>
+  {% for post in posts %}
+      <div style="text-align: center;">
+      <a href="/{{ post.slug }}/">{{ post.title }}</a>
+      </div>
+  <hr>
+  {% endfor %}
+
+
+
+{% endblock content %}

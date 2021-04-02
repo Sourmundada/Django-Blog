@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from .models import Category, Post, Comment
+from .models import Category, Post, Comment, Profile
 from django.views.generic import ListView, CreateView
 from .forms import PostForm, CommentForm, SignUpForm, LoginForm, ChangePasswordForm
 from django.db.models import Q
@@ -237,3 +237,29 @@ def change_password(request):
         #     return render(request, 'accounts/change_password.html', {'form': ChangePasswordForm(user=request.user), 'error' : 'Something Went Wrong! Try Again'})
     else:
         return render(request, 'accounts/change_password.html', {'form': ChangePasswordForm(user=request.user)})
+
+def author_profile(request, username):
+    profile = get_object_or_404(Profile, author__username=username)
+
+    followed = False
+    if profile.followers.filter(id=request.user.id).exists():
+        followed = True
+
+    posts = Post.objects.filter(author_profile=profile)
+    return render(request, 'accounts/profile.html', {'profile': profile, 'posts': posts, 'followed': followed})
+
+@login_required
+def follow_author(request, username):
+    profile = get_object_or_404(Profile, author__username=username)
+
+    follower = False
+    profile.followers.add(request.user)
+    # If NoReverseMatchError -> Check HTML File
+    return HttpResponseRedirect(reverse('profile', args=[str(username)]))
+
+@login_required
+def unfollow_author(request, username):
+    profile = get_object_or_404(Profile, author__username=username)
+    if profile.followers.filter(id=request.user.id).exists():
+        profile.followers.remove(request.user)
+    return HttpResponseRedirect(reverse('profile', args=[str(username)]))
