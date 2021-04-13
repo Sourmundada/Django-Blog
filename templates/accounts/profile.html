@@ -18,6 +18,10 @@
     Followers : {{ profile.total_followers }} Followers
   </div>
 
+{% if user == profile.author %}
+  <a href="#">Update Profile</a>
+{% endif %}
+
 
 {% if followed %}
   <form action="{% url 'unfollow_author' profile.author.username %}" method="POST">

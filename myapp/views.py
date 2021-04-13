@@ -239,6 +239,7 @@ def change_password(request):
         return render(request, 'accounts/change_password.html', {'form': ChangePasswordForm(user=request.user)})
 
 def author_profile(request, username):
+
     profile = get_object_or_404(Profile, author__username=username)
 
     followed = False
@@ -246,6 +247,7 @@ def author_profile(request, username):
         followed = True
 
     posts = Post.objects.filter(author_profile=profile)
+
     return render(request, 'accounts/profile.html', {'profile': profile, 'posts': posts, 'followed': followed})
 
 @login_required
