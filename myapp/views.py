@@ -227,16 +227,25 @@ def logoutuser(request):
 
 @login_required
 def change_password(request):
-    if request.method == 'POST':
-        form = ChangePasswordForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            return redirect('PostListView')
-        # else:
-        #     return render(request, 'accounts/change_password.html', {'form': ChangePasswordForm(user=request.user), 'error' : 'Something Went Wrong! Try Again'})
-    else:
-        return render(request, 'accounts/change_password.html', {'form': ChangePasswordForm(user=request.user)})
+    if request.method == "POST":
+        password = request.POST['old_password']
+        new_password1 = request.POST['new_password1']
+        new_password2 = request.POST['new_password2']
+
+        user = User.objects.get(username__iexact=request.user.username)
+
+        if new_password1 == new_password2:
+            success = user.check_password(password)
+            if success:
+                user.set_password(new_password1)
+                user.save()
+                return redirect('PostListView')
+            else:
+                return redirect('change_password')
+        else:
+            return redirect('change_password')
+    
+    return render(request, 'accounts/change_password.html')
 
 def author_profile(request, username):
 

@@ -25,5 +25,5 @@ urlpatterns = [
     path('unfollow/<category_slug>/', views.unfollow_category, name='unfollow_category'),
     path('dislike/<post_slug>/', views.dislike_post, name='dislike_post'),
     path('unlike/<post_slug>/', views.unlike_post, name='unlike_post'),
-    path('<post_slug>/', views.view_post, name='view_post'),
+    path('p/<post_slug>/', views.view_post, name='view_post'),
 ]

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Author - Profile{% endblock title %}
+
+{% block content %}
+
+<div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    {{ profile.full_name }}
+  </div>
+
+  {% if profile.image %}
+  <img src="{{ profile.image.url }}" width="100px" height="100px" style="border-radius: 50%;" alt="Profile Pic">
+  {% endif %}
+
+  <div class="alert alert-primary my-3" style="text-align: center;" role="alert">
+    {{ profile.bio }}
+  </div>
+
+
+
+{% endblock content %}
