@@ -28,7 +28,7 @@
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong><a href="{% url 'category_post' post.category.slug %}">({{ post.category }})</a></strong> {{ post.title }}.
   <button type="button" class="close">
-    <span aria-hidden="true"><a href="/{{ post.slug }}/">&RightTeeArrow;</a></span>
+    <span aria-hidden="true"><a href="/p/{{ post.slug }}/">&RightTeeArrow;</a></span>
   </button>
 </div>
 {% endfor %}
